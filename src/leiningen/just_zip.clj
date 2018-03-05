@@ -25,7 +25,7 @@
         paths (map #(process-path project %) (get-in project [:just-zip :files]))
         extension? (get-in project [:just-zip :extension?])]
 
-    (with-open [out (-> (str (process-path project dest) java.io.File/separator name (when extension? ".zip"))
+    (with-open [out (-> (str (process-path project dest) java.io.File/separator name (when-not extension? ".zip"))
                         (FileOutputStream.)
                         (ZipOutputStream.))]
       (doseq [p paths
